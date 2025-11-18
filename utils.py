@@ -260,7 +260,7 @@ def process_token(token,hl_symbols,binance_symbols):
             nance_price = get_binance_perp_price(sym)
             bitget_price = float(ob_data['last_price'])
 
-        if (not in_hl) and in_binance and abs(price_diff_pct) > PRICE_DIFF_THRESHOLD:
+        if (not in_hl) and in_binance> PRICE_DIFF_THRESHOLD:
             return {
                 'symbol': sym,
                 'is_in_HL': in_hl,
