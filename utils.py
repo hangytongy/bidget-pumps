@@ -259,7 +259,6 @@ def process_token(token,hl_symbols,binance_symbols):
         if in_binance:
             nance_price = get_binance_perp_price(sym)
             bitget_price = float(ob_data['last_price'])
-            price_diff_pct = ((bitget_price - nance_price) / bitget_price) * 100
 
         if (not in_hl) and in_binance and abs(price_diff_pct) > PRICE_DIFF_THRESHOLD:
             return {
@@ -269,7 +268,8 @@ def process_token(token,hl_symbols,binance_symbols):
                 'bid_wall_price': ob_data['bid_wall_price'],
                 'bid_wall_amt' : ob_data['bid_wall_amount'],
                 'orderbook_imbalance': ob_data['orderbook_imbalance'],
-                'price_pct_diff': price_diff_pct
+                'binance price': nance_price,
+                'bitget price' : bitget_price
             }
 
     return None
