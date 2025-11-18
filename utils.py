@@ -268,8 +268,8 @@ def process_token(token,hl_symbols,binance_symbols):
                 'bid_wall_price': ob_data['bid_wall_price'],
                 'bid_wall_amt' : ob_data['bid_wall_amount'],
                 'orderbook_imbalance': ob_data['orderbook_imbalance'],
-                'binance price': nance_price,
-                'bitget price' : bitget_price
+                'binance_price': nance_price,
+                'bitget_price' : bitget_price
             }
 
     return None
@@ -284,7 +284,8 @@ def format_ob_list(ob_list):
             f"• Bid Wall Price: `{item['bid_wall_price']}`\n"
             f"• Bid Wall Amount: `{item['bid_wall_amt']}`\n"
             f"• OB Imbalance: `{item['orderbook_imbalance']}`\n"
-            f"• Price Diff %: `{round(item['price_pct_diff'] * 100, 4)}%`\n"
+            f"• Binance Price: `{item['binance_price']}`\n"
+            f"• Bitget Price: `{item['bitget_price']}`\n"
             f"\n"
         )
     return msg
