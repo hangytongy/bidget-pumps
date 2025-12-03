@@ -44,7 +44,7 @@ def main():
 
     # to not hit rate limit in coingecko
     all_avail_symbols = random.sample(all_avail_symbols, len(all_avail_symbols))
-    all_avail_symbols = all_avail_symbols[:400]
+    all_avail_symbols = all_avail_symbols[:200]
 
     cg_symbols = [symbol_map[sym][0] for sym in all_avail_symbols]
 

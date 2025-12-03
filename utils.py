@@ -16,15 +16,17 @@ PRICE_DIFF_THRESHOLD = float(os.getenv('PRICE_DIFF_THRESHOLD')) #in terms of % 0
 ### STEP 1: GET BITGET PERP MARKETS
 ### -----------------------------
 def get_bitget_perp_symbols():
-    url = "https://api.bitget.com/api/mix/v1/market/contracts?productType=umcbl"
+    print("getting symbols....")
+    #url = "https://api.bitget.com/api/mix/v1/market/contracts?productType=umcbl"
+    url = "https://api.bitget.com/api/v2/mix/market/tickers?productType=USDT-FUTURES"
     r = requests.get(url)
     data = r.json().get("data", [])
 
     symbols = []
     for item in data:
         inst = item["symbol"]  # e.g. "BTCUSDT_UMCBL"
-        if inst.endswith("USDT_UMCBL"):
-            token = inst.replace("USDT_UMCBL", "")
+        if inst.endswith("USDT"):
+            token = inst.replace("USDT", "")
             symbols.append(token.lower())
 
     return list(set(symbols))
@@ -91,11 +93,12 @@ def get_bitget_orderbook(symbol, limit=OB_LIMIT, imbalance_pct=IMBALANCE_PERCENT
       1. Orderbook imbalance (bid/ask ratio in a small % range around last price)
       2. Check for large bid wall > bid_wall_threshold
     """
-    symbol_pair = f"{symbol.upper()}USDT_UMCBL"
+    symbol_pair = f"{symbol.upper()}USDT"
     
     # --- Fetch orderbook ---
-    url = "https://api.bitget.com/api/mix/v1/market/depth"
-    params = {"symbol": symbol_pair, "limit": limit}
+    # url = "https://api.bitget.com/api/mix/v1/market/depth"
+    url = "https://api.bitget.com/api/v2/mix/market/merge-depth"
+    params = {"symbol": symbol_pair, "limit": limit, "productType": "usdt-futures"}
     r = requests.get(url, params=params)
     
     if r.status_code != 200:
